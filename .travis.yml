@@ -8,9 +8,6 @@ os: osx
 git:
   depth: 2
 
-cache:
-  pip: true
-
 branches:
   only:
     - master
@@ -35,8 +32,6 @@ before_install:
         travis_retry brew install "${PYTHON}";
     fi
   - python --version
-
-before_install:
   - travis_retry pip install -U pip setuptools wheel
 
 install:
