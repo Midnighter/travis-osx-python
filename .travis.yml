@@ -20,10 +20,10 @@ matrix:
   fast_finish: true
   include:
     - env:
-        - PYTHON=27
+        - PYTHON=python27
           TOXENV=py27
     - env:
-        - PYTHON=35
+        - PYTHON=python35
           TOXENV=py35
 
 
