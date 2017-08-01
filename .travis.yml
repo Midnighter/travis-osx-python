@@ -1,0 +1,51 @@
+# Config file for automatic testing at travis-ci.org
+# This file will be regenerated if you run travis_pypi_setup.py
+
+language: generic
+sudo: false
+os: osx
+
+git:
+  depth: 2
+
+cache:
+  pip: true
+
+branches:
+  only:
+    - master
+    - devel
+
+matrix:
+  fast_finish: true
+  include:
+    - env:
+        - PYTHON=27
+          TOXENV=py27
+    - env:
+        - PYTHON=35
+          TOXENV=py35
+
+
+# command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
+before_install:
+  - if [[ "${TRAVIS_OS_NAME}" == "osx" ]]; then
+        travis_retry brew update;
+        travis_retry brew tap derekkwok/python;
+        travis_retry brew install "${PYTHON}";
+    fi
+  - python --version
+
+before_install:
+  - travis_retry pip install -U pip setuptools wheel
+
+install:
+  - travis_retry pip pytest
+# command to run tests
+script:
+  - pytest
+
+notifications:
+  email:
+    on_success: never
+    on_failure: never
