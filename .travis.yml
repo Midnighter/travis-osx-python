@@ -25,18 +25,18 @@ matrix:
 # command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
 before_install:
   - if [[ "${TRAVIS_OS_NAME}" == "osx" ]]; then
-        travis_retry brew update;
+        brew update;
         if [[ "${TOXENV}" == "py27" ]]; then
-            travis_retry brew install python;
+            brew upgrade python;
+            pip install -U pip setuptools wheel pytest;
+            python --version
         else
-            travis_retry brew install python3;
+            brew install python3;
+            pip3 install -U pip setuptools wheel pytest;
+            python3 --version
         fi
     fi
-  - python --version
-  - travis_retry pip install -U pip setuptools wheel
 
-install:
-  - travis_retry pip install -U pytest
 # command to run tests
 script:
   - pytest
