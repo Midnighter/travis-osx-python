@@ -28,17 +28,18 @@ before_install:
         brew update;
         if [[ "${TOXENV}" == "py27" ]]; then
             brew upgrade python;
-            pip install -U pip setuptools wheel pytest;
-            python --version;
+            brew link --overwrite python
+            pip2 install -U pip setuptools wheel pytest;
         else
             brew install python3;
+            brew link --overwrite python3
             pip3 install -U pip setuptools wheel pytest;
-            python3 --version;
         fi
     fi
 
 # command to run tests
 script:
+  - python --version
   - pytest
 
 notifications:
