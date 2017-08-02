@@ -29,11 +29,11 @@ before_install:
         if [[ "${TOXENV}" == "py27" ]]; then
             brew upgrade python;
             pip install -U pip setuptools wheel pytest;
-            python --version
+            python --version;
         else
             brew install python3;
             pip3 install -U pip setuptools wheel pytest;
-            python3 --version
+            python3 --version;
         fi
     fi
 
