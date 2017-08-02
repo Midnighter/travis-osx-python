@@ -17,25 +17,26 @@ matrix:
   fast_finish: true
   include:
     - env:
-        - PYTHON=python27
-          TOXENV=py27
+        - TOXENV=py27
     - env:
-        - PYTHON=python35
-          TOXENV=py35
+        - TOXENV=py35
 
 
 # command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
 before_install:
   - if [[ "${TRAVIS_OS_NAME}" == "osx" ]]; then
         travis_retry brew update;
-        travis_retry brew tap derekkwok/python;
-        travis_retry brew install "${PYTHON}";
+        if [[ "${TOXENV}" == "py27" ]]; then
+            travis_retry brew install python;
+        else
+            travis_retry brew install python3;
+        fi
     fi
   - python --version
   - travis_retry pip install -U pip setuptools wheel
 
 install:
-  - travis_retry pip pytest
+  - travis_retry pip install -U pytest
 # command to run tests
 script:
   - pytest
